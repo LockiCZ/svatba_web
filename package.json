@@ -1,0 +1,24 @@
+{
+  "name": "svatebni-web",
+  "version": "1.0.0",
+  "description": "Jednoduchý svatební web s informacemi a RSVP formulářem",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "svatba",
+    "wedding",
+    "rsvp"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
