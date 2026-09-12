@@ -46,7 +46,7 @@
               <div class="card-icon">👗</div>
               <h3>Oblečení</h3>
               <p>
-                Na obřad se prosím oblečte společensky, ale pohodlně. Svatba se ponese
+                Na obřad a hostinu se prosím oblečte společensky, ale pohodlně. Svatba se ponese
                 v podzimních barvách. 
               </p>
             </article>
@@ -68,9 +68,9 @@
               </p>
             </article>
             <article class="card">
-              <div class="card-icon">🚭</div>
-              <h3>Kouření</h3>
-              <p>Kouření je možné pouze venku na vyhrazených místech.</p>
+              <div class="card-icon">🎸</div>
+              <h3>Hudba u ohně</h3>
+              <p>Pokud hrajete na kytaru nebo jiný nástroj, vezměte ho s sebou — budeme moc rádi za společné hraní u ohně!</p>
             </article>
             <article class="card">
               <div class="card-icon">🐾</div>
@@ -98,8 +98,9 @@
           <div class="contacts">
             <h3 class="contacts-title">Máte dotaz?</h3>
             <p class="muted">
-              Máte-li jakoukoli doplňující otázku, neváhejte se na nás obrátit.
+              Máte-li jakoukoli doplňující otázku, neváhejte se na nás obrátit:
             </p>
+            <a href="tel:+420777642915" class="contact-phone">+420 777 642 915</a>
           </div>
         </div>
       </section>
@@ -129,7 +130,7 @@
                   <span class="time">18:00</span>
                   <div>
                     <h3>Večeře / grilování</h3>
-                    <p>Neformální večeře — co kdo bude chtít, to si koupí.</p>
+                    <p>Neformální večeře — pívo bude k dispozici ale jídlo na grill/oheň si doneste vlastní.</p>
                   </div>
                 </li>
                 <li>
@@ -164,21 +165,21 @@
                   <span class="time">11:30</span>
                   <div>
                     <h3>Svatební obřad</h3>
-                    <p>Ten hlavní okamžik celého dne.</p>
+                    <p>❤️</p>
                   </div>
                 </li>
                 <li>
                   <span class="time">12:00</span>
                   <div>
                     <h3>Gratulace a focení</h3>
-                    <p>Přípitek a společné fotografování.</p>
+                    <p>Společné fotografování menších a větších skupin.</p>
                   </div>
                 </li>
                 <li>
                   <span class="time">13:30</span>
                   <div>
                     <h3>Hostina</h3>
-                    <p>Slavnostní oběd a proslovy.</p>
+                    <p>Slavnostní oběd, přípitek a proslovy.</p>
                   </div>
                 </li>
                 <li>
@@ -227,11 +228,6 @@
               </ul>
             </div>
           </div>
-          <p class="program-print">
-            <a class="btn btn-outline" href="/itinerar.html" target="_blank" rel="noopener"
-              >Verze pro tisk (PDF)</a
-            >
-          </p>
         </div>
       </section>
 
@@ -244,7 +240,7 @@
               <h3>Vila Barbora</h3>
               <p>Hořičky 77, 552 05 Hořičky</p>
               <p class="muted">
-                Parkování je zajištěno přímo v areálu zámku.
+                Parkování je zajištěno přímo v areálu.
               </p>
               <a
                 class="btn btn-outline"
@@ -335,28 +331,20 @@
                 </h3>
                 <div class="two-col">
                   <div class="subfield">
-                    <label for="pocetMaso">Kolik z vás si dá maso</label>
-                    <input
-                      type="number"
-                      id="pocetMaso"
-                      name="pocetMaso"
-                      min="0"
-                      max="20"
-                      value="0"
-                    />
+                    <label>Kolik z vás si dá maso</label>
+                    <div class="stepper">
+                      <button type="button" class="stepper-btn" data-target="pocetMaso" data-delta="-1">−</button>
+                      <input type="number" id="pocetMaso" name="pocetMaso" min="0" max="20" value="0" readonly />
+                      <button type="button" class="stepper-btn" data-target="pocetMaso" data-delta="1">+</button>
+                    </div>
                   </div>
                   <div class="subfield">
-                    <label for="pocetVege"
-                      >Kolik z vás si dá vegetariánské jídlo</label
-                    >
-                    <input
-                      type="number"
-                      id="pocetVege"
-                      name="pocetVege"
-                      min="0"
-                      max="20"
-                      value="0"
-                    />
+                    <label>Kolik z vás si dá vegetariánské jídlo</label>
+                    <div class="stepper">
+                      <button type="button" class="stepper-btn" data-target="pocetVege" data-delta="-1">−</button>
+                      <input type="number" id="pocetVege" name="pocetVege" min="0" max="20" value="0" readonly />
+                      <button type="button" class="stepper-btn" data-target="pocetVege" data-delta="1">+</button>
+                    </div>
                   </div>
                 </div>
                 <p class="form-hint">
@@ -399,7 +387,9 @@
                   </label>
                   <label class="check">
                     <input type="checkbox" name="postel" />
-                    <span>Potřebuji přespat v domě s postelí (omezené možnosti, domluvíme se s vámi)</span>
+                    <span>Potřebuji přespat v domě s postelí
+                      <small class="check-warning">⚠ Zaškrtněte pouze pokud je to pro vás absolutně nezbytné — máme omezené možnosti, domluvíme se s vámi.</small>
+                    </span>
                   </label>
                 </div>
 

@@ -19,6 +19,16 @@ function nastavZpravu(text, typ) {
   if (text) message.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
+document.querySelectorAll(".stepper-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const input = document.getElementById(btn.dataset.target);
+    const delta = Number(btn.dataset.delta);
+    const min = Number(input.min ?? 0);
+    const max = Number(input.max ?? 99);
+    input.value = Math.min(max, Math.max(min, Number(input.value) + delta));
+  });
+});
+
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
   nastavZpravu("", "");

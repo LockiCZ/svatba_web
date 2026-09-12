@@ -178,8 +178,7 @@ app.get("/admin", chranit, async (_req, res) => {
         <td class="c">${esc(r.pocetVege)}</td>
         <td>${esc(r.alergie)}</td>
         <td>${r.odjezd === "sobota" ? "Sobota" : r.odjezd === "nedele" ? "Neděle" : "—"}</td>
-        <td class="c">${ano(r.vybaveni)}</td>
-        <td class="c">${ano(r.postel)}</td>
+        <td>${[r.vybaveni ? "Stan/spacák" : "", r.postel ? "Postel" : ""].filter(Boolean).join(", ") || "—"}</td>
         <td>${esc(DOPRAVA_POPIS[r.doprava] ?? r.doprava)}</td>
         <td>${esc(r.poznamka)}</td>
         <td class="nowrap">${esc(datum)}</td>
@@ -216,7 +215,7 @@ ${
   rsvps.length
     ? `<table><thead><tr>
   <th>Jména</th><th>Počet</th><th>Příjezd</th><th>Maso</th><th>Vege</th>
-  <th>Alergie</th><th>Odjezd</th><th>Vybav.</th><th>Postel</th><th>Doprava</th>
+  <th>Alergie</th><th>Odjezd</th><th>Vybavení</th><th>Doprava</th>
   <th>Poznámka</th><th>Odesláno</th>
 </tr></thead><tbody>${radky}</tbody></table>`
     : `<p class="prazdno">Zatím žádné odpovědi.</p>`
