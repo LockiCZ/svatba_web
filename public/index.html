@@ -378,26 +378,28 @@
                 <h3 class="form-section-title">
                   <span class="num">4</span> Odjezd a pobyt
                 </h3>
-                <div class="checks">
-                  <label class="check">
-                    <input type="checkbox" name="odjezdSobota" />
+
+                <p class="field-label">Čas odjezdu</p>
+                <div class="radio-group stack">
+                  <label class="radio">
+                    <input type="radio" name="odjezd" value="sobota" />
                     <span>Plánujeme odjet v sobotu domů</span>
                   </label>
-                  <label class="check">
-                    <input type="checkbox" name="zustanNedele" />
+                  <label class="radio">
+                    <input type="radio" name="odjezd" value="nedele" />
                     <span>Plánujeme zůstat do neděle</span>
                   </label>
+                </div>
+
+                <p class="field-label" style="margin-top:1rem">Vybavení</p>
+                <div class="checks">
                   <label class="check">
                     <input type="checkbox" name="vybaveni" />
-                    <span
-                      >Potřebuji půjčit stan, spacák nebo jiné vybavení</span
-                    >
+                    <span>Potřebuji půjčit stan, spacák nebo jiné vybavení</span>
                   </label>
                   <label class="check">
-                    <input type="checkbox" name="vybaveni" />
-                    <span
-                      >Potřebuji přespat v domě s postelí. (zde máme omezené možnosti, domluvíme se s vámi)</span
-                    >
+                    <input type="checkbox" name="postel" />
+                    <span>Potřebuji přespat v domě s postelí (omezené možnosti, domluvíme se s vámi)</span>
                   </label>
                 </div>
 

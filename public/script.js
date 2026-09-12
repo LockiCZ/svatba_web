@@ -16,6 +16,7 @@ aktualizovatViditelnost();
 function nastavZpravu(text, typ) {
   message.textContent = text;
   message.className = "form-message" + (typ ? " " + typ : "");
+  if (text) message.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
 form.addEventListener("submit", async (event) => {
@@ -31,17 +32,24 @@ form.addEventListener("submit", async (event) => {
 
   const prijezd = form.querySelector('input[name="prijezd"]:checked').value;
 
+  let pocetOsob = null;
+  try {
+    const names = jmena.split(",").map((s) => s.trim()).filter(Boolean);
+    if (names.length > 0) pocetOsob = names.length;
+  } catch {
+    pocetOsob = null;
+  }
+
   const data = {
     jmena,
-    email: form.email.value.trim(),
-    pocetOsob: Number(form.pocetOsob.value) || 1,
+    pocetOsob,
     prijezd,
     pocetMaso: Number(form.pocetMaso.value) || 0,
     pocetVege: Number(form.pocetVege.value) || 0,
     alergie: form.alergie.value.trim(),
-    odjezdSobota: form.odjezdSobota.checked,
-    zustanNedele: form.zustanNedele.checked,
+    odjezd: form.querySelector('input[name="odjezd"]:checked')?.value || "",
     vybaveni: form.vybaveni.checked,
+    postel: form.postel.checked,
     doprava: form.querySelector('input[name="doprava"]:checked').value,
     poznamka: form.poznamka.value.trim(),
   };
@@ -72,7 +80,8 @@ form.addEventListener("submit", async (event) => {
         "error"
       );
     }
-  } catch {
+  } catch (err) {
+    console.error("RSVP chyba:", err);
     nastavZpravu(
       "Nepodařilo se spojit se serverem. Zkontrolujte připojení.",
       "error"

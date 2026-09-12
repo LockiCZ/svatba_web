@@ -60,15 +60,14 @@ async function writeRsvps(rsvps) {
 app.post("/api/rsvp", async (req, res) => {
   const {
     jmena,
-    email,
     pocetOsob,
     prijezd,
     pocetMaso,
     pocetVege,
     alergie,
-    odjezdSobota,
-    zustanNedele,
+    odjezd,
     vybaveni,
+    postel,
     doprava,
     poznamka,
   } = req.body || {};
@@ -98,15 +97,14 @@ app.post("/api/rsvp", async (req, res) => {
   const zaznam = {
     id: Date.now().toString(36) + Math.random().toString(36).slice(2, 8),
     jmena: String(jmena).trim(),
-    email: email ? String(email).trim() : "",
-    pocetOsob: Number(pocetOsob) || 1,
+    pocetOsob: pocetOsob != null ? Number(pocetOsob) : null,
     prijezd,
     pocetMaso: nedorazi ? 0 : Number(pocetMaso) || 0,
     pocetVege: nedorazi ? 0 : Number(pocetVege) || 0,
     alergie: !nedorazi && alergie ? String(alergie).trim() : "",
-    odjezdSobota: nedorazi ? false : !!odjezdSobota,
-    zustanNedele: nedorazi ? false : !!zustanNedele,
+    odjezd: nedorazi ? "" : (odjezd || ""),
     vybaveni: nedorazi ? false : !!vybaveni,
+    postel: nedorazi ? false : !!postel,
     doprava:
       !nedorazi && platnaDoprava.includes(doprava) ? doprava : "",
     poznamka: poznamka ? String(poznamka).trim() : "",
@@ -141,10 +139,11 @@ const PRIJEZD_POPIS = {
   nevim: "Ještě nevíme",
   nemuzu: "Nedorazí",
 };
+
 const DOPRAVA_POPIS = {
-  "": "—",
-  rozvoz: "Rozvoz",
-  sami: "Sami",
+  "": "Neřeší",
+  rozvoz: "Chce rozvoz",
+  sami: "Odvezou se sami",
 };
 
 function esc(text) {
@@ -178,11 +177,10 @@ app.get("/admin", chranit, async (_req, res) => {
         <td class="c">${esc(r.pocetMaso)}</td>
         <td class="c">${esc(r.pocetVege)}</td>
         <td>${esc(r.alergie)}</td>
-        <td class="c">${ano(r.odjezdSobota)}</td>
-        <td class="c">${ano(r.zustanNedele)}</td>
+        <td>${r.odjezd === "sobota" ? "Sobota" : r.odjezd === "nedele" ? "Neděle" : "—"}</td>
         <td class="c">${ano(r.vybaveni)}</td>
+        <td class="c">${ano(r.postel)}</td>
         <td>${esc(DOPRAVA_POPIS[r.doprava] ?? r.doprava)}</td>
-        <td>${esc(r.email)}</td>
         <td>${esc(r.poznamka)}</td>
         <td class="nowrap">${esc(datum)}</td>
       </tr>`;
@@ -210,6 +208,7 @@ app.get("/admin", chranit, async (_req, res) => {
 <div class="souhrn">
   <div class="karta"><b>${rsvps.length}</b>dotazníků</div>
   <div class="karta"><b>${celkemOsob}</b>lidí dorazí</div>
+  <div class="karta"><b>${dorazi.length}</b>skupin dorazí</div>
   <div class="karta"><b>${celkemMaso}</b>porcí masa</div>
   <div class="karta"><b>${celkemVege}</b>vegetariánských</div>
 </div>
@@ -217,8 +216,8 @@ ${
   rsvps.length
     ? `<table><thead><tr>
   <th>Jména</th><th>Počet</th><th>Příjezd</th><th>Maso</th><th>Vege</th>
-  <th>Alergie</th><th>Odj. so</th><th>Ne</th><th>Vybav.</th><th>Doprava</th>
-  <th>E-mail</th><th>Poznámka</th><th>Odesláno</th>
+  <th>Alergie</th><th>Odjezd</th><th>Vybav.</th><th>Postel</th><th>Doprava</th>
+  <th>Poznámka</th><th>Odesláno</th>
 </tr></thead><tbody>${radky}</tbody></table>`
     : `<p class="prazdno">Zatím žádné odpovědi.</p>`
 }
