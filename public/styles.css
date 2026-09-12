@@ -95,6 +95,15 @@ a {
   border: 1px solid rgba(58, 53, 47, 0.4);
   border-radius: 999px;
   padding: 0.4rem 1.1rem;
+  transition: background 0.18s, color 0.18s;
+}
+
+.nav-cta:hover,
+a.nav-cta:hover {
+  background: var(--ink);
+  color: #f5f0e8 !important;
+  border-color: var(--ink);
+  opacity: 1;
 }
 
 .hero-content {
