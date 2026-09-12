@@ -1,3 +1,6 @@
+import { config as dotenvConfig } from "dotenv";
+dotenvConfig(); // lokální .env
+dotenvConfig({ path: "/etc/secrets/.env", override: false }); // Render Secret Files
 import express from "express";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
