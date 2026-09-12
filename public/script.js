@@ -16,7 +16,27 @@ aktualizovatViditelnost();
 function nastavZpravu(text, typ) {
   message.textContent = text;
   message.className = "form-message" + (typ ? " " + typ : "");
-  if (text) message.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  if (text) zobrazToast(text, typ);
+}
+
+function zobrazToast(text, typ) {
+  const old = document.getElementById("toast-popup");
+  if (old) old.remove();
+
+  const toast = document.createElement("div");
+  toast.id = "toast-popup";
+  toast.className = "toast" + (typ ? " toast-" + typ : "");
+  toast.textContent = text;
+
+  const close = document.createElement("button");
+  close.className = "toast-close";
+  close.textContent = "×";
+  close.onclick = () => toast.remove();
+  toast.appendChild(close);
+
+  document.body.appendChild(toast);
+  requestAnimationFrame(() => toast.classList.add("toast-show"));
+
 }
 
 document.querySelectorAll(".stepper-btn").forEach((btn) => {
@@ -77,11 +97,7 @@ form.addEventListener("submit", async (event) => {
     const vysledek = await res.json();
 
     if (res.ok && vysledek.ok) {
-      const dekujeme =
-        prijezd === "nemuzu"
-          ? "Děkujeme za odpověď. Budete nám chybět!"
-          : "Děkujeme! Těšíme se na vás. ❤";
-      nastavZpravu(dekujeme, "success");
+      zobrazModal();
       form.reset();
       aktualizovatViditelnost();
     } else {
@@ -101,3 +117,26 @@ form.addEventListener("submit", async (event) => {
     submitBtn.textContent = "Odeslat dotazník";
   }
 });
+
+function zobrazModal() {
+  const overlay = document.createElement("div");
+  overlay.className = "modal-overlay";
+
+  const box = document.createElement("div");
+  box.className = "modal-box";
+  box.innerHTML = `
+    <p class="modal-icon">❤️</p>
+    <h2 class="modal-title">Děkujeme za odeslání!</h2>
+    <p class="modal-text">Vaše odpověď byla úspěšně přijata. Těšíme se na vás!</p>
+    <button class="modal-ok">OK</button>
+  `;
+
+  overlay.appendChild(box);
+  document.body.appendChild(overlay);
+  requestAnimationFrame(() => overlay.classList.add("modal-show"));
+
+  box.querySelector(".modal-ok").addEventListener("click", () => {
+    overlay.classList.remove("modal-show");
+    setTimeout(() => overlay.remove(), 300);
+  });
+}
